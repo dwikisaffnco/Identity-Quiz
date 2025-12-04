@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin — Quiz Result #{{ $result->id }}</title>
+    <link rel="icon" type="image/png" href="{{ asset('Logogram White.png') }}">
     <link rel="stylesheet" href="{{ asset('css/stylce.css') }}">
     <style>
       * {
@@ -42,16 +43,10 @@
         color: #f9fafb;
       }
 
-      .sidebar-brand span {
-        width: 32px;
-        height: 32px;
-        background: linear-gradient(135deg, #000 0%, #444 100%);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: 900;
+      .sidebar-brand img {
+        height: 28px;
+        width: auto;
+        display: block;
       }
 
       .sidebar-menu {
@@ -284,8 +279,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="sidebar-brand">
-        <span>🎯</span>
-        <div>Quiz Admin</div>
+        <img src="{{ asset('Logotype White.png') }}" alt="SAFF &amp; Co Admin">
       </div>
       <ul class="sidebar-menu">
         <li><a href="{{ route('admin.quiz_results.index') }}">📊 Dashboard</a></li>

@@ -184,6 +184,97 @@ All export controls are handled only in the admin dashboard.
 
 ---
 
+## Perumusan Skor Identity Quiz (Ringkasan)
+
+Bagian ini menjelaskan logika skoring dalam bahasa sederhana, supaya mudah dicek/diaudit.
+
+### Kategori
+
+Ada 5 kategori identitas:
+
+-   A – CHEERFUL & SWEET
+-   B – MINIMALIST & CLEAN
+-   C – COZY & HOME
+-   D – BOLD & DEEP
+-   E – WANDER & ARTISTIC
+
+Di awal, semua skor di-set ke 0:
+
+-   `ScoreA = 0`
+-   `ScoreB = 0`
+-   `ScoreC = 0`
+-   `ScoreD = 0`
+-   `ScoreE = 0`
+
+### Pertanyaan yang dipakai untuk hitung skor
+
+Pertanyaan yang **wajib diisi** dan ikut menentukan kategori:
+
+-   Q1
+-   Q3
+-   Q4
+-   Q5
+-   Q6
+
+Q2 tidak mempengaruhi skor (hanya disimpan apa adanya).
+
+Jika salah satu dari Q1, Q3, Q4, Q5, Q6 kosong, sistem menampilkan pesan peringatan dan hasil tidak dihitung.
+
+### Bobot skoring per pertanyaan
+
+Setiap jawaban adalah huruf A–E. Huruf ini langsung menunjuk kategori yang akan ditambah skornya.
+
+-   **Q1**
+    -   Jawaban A/B/C/D → kategori tersebut **+1 poin**
+-   **Q3**
+    -   Jawaban A/B/C/D → kategori tersebut **+1 poin**
+-   **Q4**
+    -   Jawaban A/B/C/D/E → kategori tersebut **+2 poin**
+-   **Q5**
+    -   Jawaban A/B/C/D → kategori tersebut **+2 poin**
+-   **Q6**
+    -   Jawaban A/B/C/D → kategori tersebut **+2 poin**
+
+Total maksimal skor satu kategori jika semua jawaban huruf yang sama:
+
+`1 (Q1) + 1 (Q3) + 2 (Q4) + 2 (Q5) + 2 (Q6) = 8 poin`.
+
+### Pemilihan kategori akhir
+
+Setelah semua poin dijumlahkan (ScoreA–ScoreE):
+
+1. Sistem mencari kategori dengan skor paling tinggi.
+2. Kategori dengan skor tertinggi menjadi `FinalCategory` (A/B/C/D/E).
+3. Nama lengkap kategori disimpan sebagai `FinalCategoryName`.
+
+### Mapping kategori ke nama & rekomendasi
+
+-   **A – CHEERFUL & SWEET**
+    -   Deskripsi: _Light energy, easy comfort._
+    -   Full size: SOTB, SOFR, MINOUET, XOCOLATL
+    -   Mist: Annabel Lee
+-   **B – MINIMALIST & CLEAN**
+    -   Deskripsi: _Clear space, clear mind._
+    -   Full size: LOUI, LAS POZAS, IRAI LEIMA, ILIAD
+    -   Mist: Sonnet 116
+-   **C – COZY & HOME**
+    -   Deskripsi: _The feeling of coming home, wherever you are._
+    -   Full size: KIE RAHA, RAE NIRA, OMNIA, CHNO
+    -   Mist: Remedia Amoris
+-   **D – BOLD & DEEP**
+    -   Deskripsi: _Quiet confidence with a lasting impression._
+    -   Full size: MALEALI, COCO, SAFF, SOLARIS
+    -   Mist: Träumerei, Am Kamin
+-   **E – WANDER & ARTISTIC**
+    -   Deskripsi: _Thoughtful, reflective, and quietly creative._
+    -   Full size: MORFOSIA, OSTARA, KIRITHRA, TROUPE
+    -   Mist: Sonnet 116
+
+Contoh sederhana:
+
+-   Semua jawaban A → `ScoreA = 8`, kategori akhir: **A – CHEERFUL & SWEET**.
+-   Kombinasi yang mayoritas C (misalnya Q1/Q4/Q5/Q6 = C) → `ScoreC` paling tinggi, kategori akhir: **C – COZY & HOME**.
+
 ## License
 
 This project is based on Laravel, which is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SAFF &amp; Co – Quiz 2026</title>
+    <link rel="icon" type="image/png" href="{{ asset('Logogram White.png') }}" />
     <link rel="stylesheet" href="{{ asset('css/stylce.css') }}" />
   </head>
   <body>
@@ -76,7 +77,7 @@
       &copy; SAFF &amp; Co. 2026 · Identity Quiz
     </footer>
 
-    <script src="{{ asset('js/script.js') }}"></footer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
   </body>
 </html>

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sign in — SAFF & Co</title>
+    <link rel="icon" type="image/png" href="{{ asset('Logogram White.png') }}">
     <link rel="stylesheet" href="{{ asset('css/stylce.css') }}">
     <style>
       *{margin:0;padding:0;box-sizing:border-box}
@@ -41,6 +42,9 @@
     <div class="layout">
       <div class="card-area">
         <div class="card">
+          <div style="text-align:center;margin-bottom:16px;">
+            <img src="{{ asset('Logotype White.png') }}" alt="SAFF &amp; Co" style="max-width:160px;height:auto;">
+          </div>
           <h1>Sign in</h1>
           <p>Silahkan Masuk ke dashboard form</p>
 

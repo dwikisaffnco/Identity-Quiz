@@ -63,10 +63,10 @@ function calculateResult() {
 
     const resultData = {
         A: {
-            title: "COZY & HOME",
-            desc: "The feeling of coming home, wherever you are.",
-            full: ["KIE RAHA", "RAE NIRA", "OMNIA", "CHNO"],
-            mist: ["Remedia Amoris"],
+            title: "CHEERFUL & SWEET",
+            desc: "Light energy, easy comfort.",
+            full: ["SOTB", "SOFR", "MINOUET", "XOCOLATL"],
+            mist: ["Annabel Lee"],
         },
         B: {
             title: "MINIMALIST & CLEAN",
@@ -75,10 +75,10 @@ function calculateResult() {
             mist: ["Sonnet 116"],
         },
         C: {
-            title: "CHEERFUL & SWEET",
-            desc: "Light energy, easy comfort.",
-            full: ["SOTB", "SOFR", "MINOUET", "XOCOLATL"],
-            mist: ["Annabel Lee"],
+            title: "COZY & HOME",
+            desc: "The feeling of coming home, wherever you are.",
+            full: ["KIE RAHA", "RAE NIRA", "OMNIA", "CHNO"],
+            mist: ["Remedia Amoris"],
         },
         D: {
             title: "BOLD & DEEP",
