@@ -625,7 +625,32 @@
           alert('No results to export');
           return;
         }
-        window.location.href = '{{ route('admin.quiz_results.export') }}';
+        fetch('{{ route('admin.quiz_results.export') }}', {
+          method: 'GET',
+          headers: {
+            'Accept': 'text/csv',
+          },
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to export CSV');
+            }
+            return response.blob();
+          })
+          .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'quiz_results_{{ now()->format('Ymd_His') }}.csv';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+          })
+          .catch(error => {
+            console.error('Error exporting CSV:', error);
+            alert('Failed to export CSV');
+          });
       }
 
       function exportAllToSheets() {
@@ -648,6 +673,15 @@
           confirmButtonText: 'Yes, send',
         }).then((result) => {
           if (!result.isConfirmed) return;
+          Swal.fire({
+            title: 'Sending...',
+            text: 'Please wait while we send data to Google Sheets.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
 
           fetch('{{ route('admin.quiz_results.export_sheets') }}', {
             method: 'POST',
@@ -660,6 +694,7 @@
           })
             .then(res => res.json())
             .then(data => {
+              Swal.close();
               if (data && data.ok) {
                 Swal.fire({
                   title: 'Success!',
@@ -676,6 +711,7 @@
             })
             .catch(err => {
               console.error('Error exporting to sheets:', err);
+              Swal.close();
               Swal.fire({
                 title: 'Error',
                 text: 'An error occurred while sending data.',
