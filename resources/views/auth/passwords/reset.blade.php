@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Set new password — SAFF & Co</title>
     <link rel="stylesheet" href="{{ asset('css/stylce.css') }}">
-    <style>
-      body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;background:#f6f7fb;min-height:100vh;display:flex;align-items:center;justify-content:center}
-      .box{width:420px;background:white;padding:28px;border-radius:12px;box-shadow:0 8px 30px rgba(15,23,42,0.08)}
-+      h1{margin:0 0 6px 0;font-size:20px}
-+      p{color:#6b7280;margin-bottom:18px}
-+      .input{width:100%;padding:12px;border-radius:10px;border:1px solid #e6e9ef;background:#f7f9fc;margin-bottom:12px}
-+      .btn{width:100%;padding:12px;border-radius:10px;background:#3741ff;color:white;border:none;font-weight:600}
-+      .meta{margin-top:12px;text-align:center;color:#6b7280}
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/auth_password_reset.css') }}">
   </head>
   <body>
     <div class="box">
