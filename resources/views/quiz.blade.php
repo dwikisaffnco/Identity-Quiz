@@ -4,7 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>SAFF &amp; Co – Quiz 2026</title>
+
+    <title>SAFF &amp; Co – Identity Quiz 2026</title>
+
+    <!-- Basic SEO -->
+    <meta name="description" content="Discover your 2026 identity with SAFF &amp; Co. Answer a short quiz and get a personalized scent and lifestyle mood." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="{{ url()->current() }}" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="SAFF &amp; Co – Identity Quiz 2026" />
+    <meta property="og:description" content="Discover your 2026 identity with SAFF &amp; Co. Answer a short quiz and get a personalized scent and lifestyle mood." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:site_name" content="SAFF &amp; Co" />
+    <meta property="og:image" content="{{ asset('og/identity-quiz-2026.png') }}" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SAFF &amp; Co – Identity Quiz 2026" />
+    <meta name="twitter:description" content="Discover your 2026 identity with SAFF &amp; Co. Answer a short quiz and get a personalized scent and lifestyle mood." />
+    <meta name="twitter:image" content="{{ asset('og/identity-quiz-2026.png') }}" />
+
     <link rel="icon" type="image/png" href="{{ asset('Logogram White.png') }}" />
     <link rel="stylesheet" href="{{ asset('css/stylce.css') }}" />
   </head>

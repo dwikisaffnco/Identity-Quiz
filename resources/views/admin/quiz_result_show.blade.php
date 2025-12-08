@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="{{ asset('Logogram White.png') }}">
     <link rel="stylesheet" href="{{ asset('css/stylce.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin_quiz_result_show.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
     <!-- Sidebar -->
@@ -15,8 +16,8 @@
         <img src="{{ asset('Logotype White.png') }}" alt="SAFF &amp; Co Admin">
       </div>
       <ul class="sidebar-menu">
-        <li><a href="{{ route('admin.quiz_results.index') }}">📊 Dashboard</a></li>
-        <li><a href="{{ route('admin.quiz_results.index') }}" class="active">📋 Results</a></li>
+        <li><a href="{{ route('admin.quiz_results.index') }}"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="{{ route('admin.quiz_results.index') }}" class="active"><i class="fa-solid fa-table"></i> Results</a></li>
       </ul>
     </div>
 
@@ -32,13 +33,13 @@
         <div class="detail-header">
           <h2>Result #{{ $result->id }}</h2>
           <div class="detail-badge">
-            📊 {{ $result->final_category }}
+            <i class="fa-solid fa-chart-pie"></i> {{ $result->final_category }}
           </div>
         </div>
 
         <!-- User & Category Section -->
         <div class="detail-section">
-          <div class="detail-section-title">📝 Summary</div>
+          <div class="detail-section-title"><i class="fa-regular fa-clipboard"></i> Summary</div>
           <div class="detail-row">
             <div class="detail-label">User</div>
             <div class="detail-value">{{ $result->user?->email ?? 'Guest' }}</div>
@@ -59,7 +60,7 @@
 
         <!-- Answers Section -->
         <div class="detail-section">
-          <div class="detail-section-title">✏️ Answers</div>
+          <div class="detail-section-title"><i class="fa-regular fa-pen-to-square"></i> Answers</div>
           <div class="answers-grid">
             <div class="answer-card">
               <div class="answer-card-label">Q1: Season Identity</div>
@@ -90,7 +91,7 @@
 
         <!-- Scores Section -->
         <div class="detail-section">
-          <div class="detail-section-title">🎯 Scores</div>
+          <div class="detail-section-title"><i class="fa-solid fa-bullseye"></i> Scores</div>
           <div class="scores-container">
             <div class="score-item">
               <div class="score-letter">A</div>
@@ -117,7 +118,7 @@
 
         <!-- Rolling List Section -->
         <div class="detail-section">
-          <div class="detail-section-title">🎁 Recommended Items</div>
+          <div class="detail-section-title"><i class="fa-solid fa-gift"></i> Recommended Items</div>
           <div class="rolling-list-box">
             {{ $result->rolling_list ?: 'No recommendations available' }}
           </div>

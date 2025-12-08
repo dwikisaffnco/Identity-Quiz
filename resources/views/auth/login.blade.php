@@ -13,7 +13,7 @@
       <div class="card-area">
         <div class="card">
           <div style="text-align:center;margin-bottom:16px;">
-            <img src="{{ asset('Logotype White.png') }}" alt="SAFF &amp; Co" style="max-width:160px;height:auto;">
+            <img src="{{ asset('Logogram Black.png') }}" alt="SAFF &amp; Co" style="max-width:160px;height:auto;">
           </div>
           <h1>Sign in</h1>
           <p>Silahkan Masuk ke dashboard form</p>

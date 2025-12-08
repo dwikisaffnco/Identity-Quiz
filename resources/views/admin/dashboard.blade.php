@@ -7,7 +7,8 @@
     <title>Admin Dashboard</title>
     <link rel="icon" type="image/png" href="{{ asset('Logogram White.png') }}">
     <link rel="stylesheet" href="{{ asset('css/stylce.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin_dashboard.css  ') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin_dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
     <!-- Sidebar -->
@@ -16,8 +17,8 @@
         <img src="{{ asset('Logotype White.png') }}" alt="SAFF &amp; Co Admin">
       </div>
       <ul class="sidebar-menu">
-        <li><a href="{{ route('admin.quiz_results.index') }}" class="active">📊 Dashboard</a></li>
-        <li><a href="{{ route('admin.quiz_results.index') }}">📋 Results</a></li>
+        <li><a href="{{ route('admin.quiz_results.index') }}" class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="{{ route('admin.quiz_results.index') }}"><i class="fa-solid fa-table"></i> Results</a></li>
       </ul>
     </div>
 
@@ -50,7 +51,7 @@
         <div class="stat-card">
           <div class="stat-card-header">
             <div class="stat-card-title">Total Responses</div>
-            <div class="stat-icon">📊</div>
+            <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
           </div>
           <div class="stat-number">{{ $totalResponses }}</div>
           <div class="stat-change">✓ All time</div>
@@ -59,7 +60,7 @@
         <div class="stat-card">
           <div class="stat-card-header">
             <div class="stat-card-title">Categories</div>
-            <div class="stat-icon">🏷️</div>
+            <div class="stat-icon"><i class="fa-solid fa-tags"></i></div>
           </div>
           <div class="stat-number">5</div>
           <div class="stat-change">✓ A, B, C, D, E</div>
@@ -68,7 +69,7 @@
         <div class="stat-card">
           <div class="stat-card-header">
             <div class="stat-card-title">Admin</div>
-            <div class="stat-icon">👤</div>
+            <div class="stat-icon"><i class="fa-solid fa-user"></i></div>
           </div>
           <div class="stat-number">{{ Auth::user()->name }}</div>
           <div class="stat-change">✓ Logged in</div>
@@ -79,8 +80,9 @@
       <div class="section-header">
         <h2>Quiz Results</h2>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <button onclick="exportAllCSV()" class="export-btn" style="background:#fff;color:#111827;border:1px solid #e5e7eb;">Export to CSV</button>
+          {{-- <button onclick="exportAllCSV()" class="export-btn" style="background:#fff;color:#111827;border:1px solid #e5e7eb;">Export to CSV</button> --}}
           <button onclick="exportAllToSheets()" class="export-btn" style="background:#fff;color:#111827;border:1px solid #e5e7eb;">Send to Google Sheets</button>
+          <a href="https://docs.google.com/spreadsheets/d/1QkIIXNfVRwYPIw9WE3ixGVQQHT88IpG12HB3Xc8ShEY/edit?gid=946384394#gid=946384394" target="_blank" rel="noopener" class="export-btn" style="background:#fff;color:#111827;border:1px solid #e5e7eb;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;">View Sheets</a>
         </div>
       </div>
 
@@ -107,9 +109,9 @@
                 <td>{{ $r->created_at->format('d M Y, H:i') }}</td>
                 <td style="text-align: center;">
                   <div class="action-buttons">
-                    <a href="{{ route('admin.quiz_results.show', $r->id) }}" class="action-btn btn-view">View</a>
-                    <a href="{{ route('admin.quiz_results.edit', $r->id) }}" class="action-btn btn-edit">Edit</a>
-                    <a href="#" onclick="deleteResult({{ $r->id }}); return false;" class="action-btn btn-delete">Delete</a>
+                    <a href="{{ route('admin.quiz_results.show', $r->id) }}" class="action-btn btn-view"><i class="fa-regular fa-eye"></i> View</a>
+                    <a href="{{ route('admin.quiz_results.edit', $r->id) }}" class="action-btn btn-edit"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+                    <a href="#" onclick="deleteResult({{ $r->id }}); return false;" class="action-btn btn-delete"><i class="fa-regular fa-trash-can"></i> Delete</a>
                   </div>
                 </td>
               </tr>
@@ -132,169 +134,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      // Mobile sidebar toggle
-      const sidebar = document.querySelector('.sidebar');
-      const toggleBtn = document.querySelector('.sidebar-toggle');
-
-      if (sidebar && toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-          sidebar.classList.toggle('open');
-        });
-      }
-
-      function deleteResult(id) {
-        Swal.fire({
-          title: 'Delete Result?',
-          text: 'This action cannot be undone.',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#dc2626',
-          cancelButtonColor: '#6b7280',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            fetch(`/admin/quiz-results/${id}`, {
-              method: 'DELETE',
-              headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
-                'Accept': 'application/json'
-              }
-            })
-              .then(res => res.json())
-              .then(data => {
-                if (data && data.ok) {
-                  Swal.fire({
-                    title: 'Successful!',
-                    text: 'Result deleted successfully.',
-                    icon: 'success',
-                    confirmButtonColor: '#667eea'
-                  }).then(() => {
-                    window.location.reload();
-                  });
-                } else {
-                  Swal.fire({
-                    title: 'Error!',
-                    text: 'Failed to delete result.',
-                    icon: 'error',
-                    confirmButtonColor: '#667eea'
-                  });
-                }
-              })
-              .catch(err => {
-                console.error('Error:', err);
-                Swal.fire({
-                  title: 'Error!',
-                  text: 'An error occurred while deleting.',
-                  icon: 'error',
-                  confirmButtonColor: '#667eea'
-                });
-              });
-          }
-        });
-      }
-
-      function exportAllCSV() {
-        const totalResults = {{ $totalResponses }};
-        
-        if (totalResults === 0) {
-          alert('No results to export');
-          return;
-        }
-        fetch('{{ route('admin.quiz_results.export') }}', {
-          method: 'GET',
-          headers: {
-            'Accept': 'text/csv',
-          },
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Failed to export CSV');
-            }
-            return response.blob();
-          })
-          .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'quiz_results_{{ now()->format('Ymd_His') }}.csv';
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(url);
-          })
-          .catch(error => {
-            console.error('Error exporting CSV:', error);
-            alert('Failed to export CSV');
-          });
-      }
-
-      function exportAllToSheets() {
-        const totalResults = {{ $totalResponses }};
-
-        if (totalResults === 0) {
-          Swal.fire({
-            title: 'No results',
-            text: 'There are no quiz results to send yet.',
-            icon: 'info',
-          });
-          return;
-        }
-
-        Swal.fire({
-          title: 'Send to Google Sheets?',
-          text: 'All quiz results will be sent to Google Sheets.',
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, send',
-        }).then((result) => {
-          if (!result.isConfirmed) return;
-          Swal.fire({
-            title: 'Sending...',
-            text: 'Please wait while we send data to Google Sheets.',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            didOpen: () => {
-              Swal.showLoading();
-            },
-          });
-
-          fetch('{{ route('admin.quiz_results.export_sheets') }}', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
-              'Accept': 'application/json',
-            },
-            body: JSON.stringify({}),
-          })
-            .then(res => res.json())
-            .then(data => {
-              Swal.close();
-              if (data && data.ok) {
-                Swal.fire({
-                  title: 'Success!',
-                  text: data.message || 'All results sent to Google Sheets.',
-                  icon: 'success',
-                });
-              } else {
-                Swal.fire({
-                  title: 'Error',
-                  text: (data && data.message) || 'Failed to send data to Google Sheets.',
-                  icon: 'error',
-                });
-              }
-            })
-            .catch(err => {
-              console.error('Error exporting to sheets:', err);
-              Swal.close();
-              Swal.fire({
-                title: 'Error',
-                text: 'An error occurred while sending data.',
-                icon: 'error',
-              });
-            });
-        });
-      }
+      window.DASHBOARD_CONFIG = {
+        totalResults: {{ $totalResponses }},
+        exportCsvUrl: '{{ route('admin.quiz_results.export') }}',
+        exportCsvFilename: 'quiz_results_{{ now()->format('Ymd_His') }}.csv',
+        exportSheetsUrl: '{{ route('admin.quiz_results.export_sheets') }}',
+      };
     </script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
   </body>
 </html>
