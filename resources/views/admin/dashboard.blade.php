@@ -81,8 +81,8 @@
         <h2>Quiz Results</h2>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
           {{-- <button onclick="exportAllCSV()" class="export-btn" style="background:#fff;color:#111827;border:1px solid #e5e7eb;">Export to CSV</button> --}}
-          <button onclick="exportAllToSheets()" class="export-btn" style="background:#fff;color:#111827;border:1px solid #e5e7eb;">Send to Google Sheets</button>
-          <a href="https://docs.google.com/spreadsheets/d/1QkIIXNfVRwYPIw9WE3ixGVQQHT88IpG12HB3Xc8ShEY/edit?gid=946384394#gid=946384394" target="_blank" rel="noopener" class="export-btn" style="background:#fff;color:#111827;border:1px solid #e5e7eb;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;">View Sheets</a>
+          <button type="button" onclick="window.open('https://docs.google.com/spreadsheets/d/1QkIIXNfVRwYPIw9WE3ixGVQQHT88IpG12HB3Xc8ShEY/edit?gid=946384394#gid=946384394', '_blank');" class="export-btn" style="background:#fff;color:#111827;border:1px solid #e5e7eb;width:auto;">View Sheets</button>
+          <button onclick="exportAllToSheets()" class="export-btn" style="background:#fff;color:#111827;border:1px solid #e5e7eb;width:auto;">Send to Google Sheets</button>
         </div>
       </div>
 
