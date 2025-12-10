@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Edit Quiz Result #{{ $result->id }}</title>
+    <title>Admin — Edit Quiz Result #{{ $result->id }}</title>
     <link rel="icon" type="image/png" href="{{ asset('Logogram White.png') }}">
     <link rel="stylesheet" href="{{ asset('css/stylce.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin_quiz_result_show.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin_quiz_result_edit.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
     <!-- Sidebar -->
@@ -16,8 +18,8 @@
         <img src="{{ asset('Logotype White.png') }}" alt="SAFF &amp; Co Admin">
       </div>
       <ul class="sidebar-menu">
-        <li><a href="{{ route('admin.quiz_results.index') }}">📊 Dashboard</a></li>
-        <li><a href="{{ route('admin.quiz_results.index') }}" class="active">📋 Results</a></li>
+        <li><a href="{{ route('admin.quiz_results.index') }}"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="{{ route('admin.quiz_results.index') }}" class="active"><i class="fa-solid fa-table"></i> Results</a></li>
       </ul>
     </div>
 
@@ -25,10 +27,10 @@
     <div class="main-content">
       <div class="header">
         <h1>Edit Result</h1>
-        <a href="{{ route('admin.quiz_results.show', $result->id) }}" class="back-link">← Back</a>
+        <a href="{{ route('admin.quiz_results.show', $result->id) }}" class="back-link">← Back to Result</a>
       </div>
 
-      <div class="edit-container">
+      <div class="detail-container">
         @if ($errors->any())
           <div class="alert alert-error">
             <strong>Error:</strong>
@@ -45,63 +47,103 @@
           @method('PUT')
 
           <!-- Header -->
-          <div class="edit-header">
+          <div class="detail-header">
             <h2>Result #{{ $result->id }}</h2>
-            <div style="font-size: 14px; color: #718096;">
-              Category: <strong>{{ $result->final_category_name }}</strong>
+            <div class="detail-badge">
+              <i class="fa-solid fa-chart-pie"></i> {{ $result->final_category }}
             </div>
           </div>
 
-          <!-- Answers Section -->
-          <div class="form-section">
-            <div class="form-section-title">✏️ Answers</div>
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="q1">Q1: Season Identity</label>
-                <input type="text" id="q1" name="q1" value="{{ old('q1', $result->q1) }}" placeholder="A, B, C, or D">
+          <!-- Summary Section (read-only, sama seperti view) -->
+          <div class="detail-section">
+            <div class="detail-section-title"><i class="fa-regular fa-clipboard"></i> Summary</div>
+            <div class="detail-row">
+              <div class="detail-label">User</div>
+              <div class="detail-value">{{ $result->user?->email ?? 'Guest' }}</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Category</div>
+              <div class="detail-value">{{ $result->final_category }}</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Category Name</div>
+              <div class="detail-value"><strong>{{ $result->final_category_name }}</strong></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Submitted</div>
+              <div class="detail-value">{{ $result->created_at->format('d M Y, H:i:s') }}</div>
+            </div>
+          </div>
+
+          <!-- Answers Section (editable) -->
+          <div class="detail-section">
+            <div class="detail-section-title"><i class="fa-regular fa-pen-to-square"></i> Answers</div>
+            <div class="answers-grid answers-grid-edit">
+              <div class="answer-card">
+                <div class="answer-card-label">Q1: Season Identity</div>
+                <div class="answer-card-value">
+                  <input type="text" name="q1" value="{{ old('q1', $result->q1) }}" placeholder="A, B, C, or D">
+                </div>
               </div>
-              <div class="form-group">
-                <label for="q2">Q2: Collection</label>
-                <input type="text" id="q2" name="q2" value="{{ old('q2', $result->q2) }}" placeholder="Enter collection name">
+              <div class="answer-card">
+                <div class="answer-card-label">Q2: Collection</div>
+                <div class="answer-card-value">
+                  <input type="text" name="q2" value="{{ old('q2', $result->q2) }}" placeholder="Enter collection name">
+                </div>
               </div>
-              <div class="form-group">
-                <label for="q3">Q3: Destination</label>
-                <input type="text" id="q3" name="q3" value="{{ old('q3', $result->q3) }}" placeholder="A, B, C, or D">
+              <div class="answer-card">
+                <div class="answer-card-label">Q3: Destination</div>
+                <div class="answer-card-value">
+                  <input type="text" name="q3" value="{{ old('q3', $result->q3) }}" placeholder="A, B, C, or D">
+                </div>
               </div>
-              <div class="form-group">
-                <label for="q4">Q4: Cloud Mist</label>
-                <input type="text" id="q4" name="q4" value="{{ old('q4', $result->q4) }}" placeholder="A, B, C, D, or E">
+              <div class="answer-card">
+                <div class="answer-card-label">Q4: Cloud Mist</div>
+                <div class="answer-card-value">
+                  <input type="text" name="q4" value="{{ old('q4', $result->q4) }}" placeholder="A, B, C, D, or E">
+                </div>
               </div>
-              <div class="form-group">
-                <label for="q5">Q5: Spell</label>
-                <input type="text" id="q5" name="q5" value="{{ old('q5', $result->q5) }}" placeholder="A, B, C, or D">
+              <div class="answer-card">
+                <div class="answer-card-label">Q5: Spell</div>
+                <div class="answer-card-value">
+                  <input type="text" name="q5" value="{{ old('q5', $result->q5) }}" placeholder="A, B, C, or D">
+                </div>
               </div>
-              <div class="form-group">
-                <label for="q6">Q6: Home Word</label>
-                <input type="text" id="q6" name="q6" value="{{ old('q6', $result->q6) }}" placeholder="A, B, C, or D">
+              <div class="answer-card">
+                <div class="answer-card-label">Q6: Home Word</div>
+                <div class="answer-card-value">
+                  <input type="text" name="q6" value="{{ old('q6', $result->q6) }}" placeholder="A, B, C, or D">
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Category Section -->
-          <div class="form-section">
-            <div class="form-section-title">🏷️ Category</div>
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="final_category">Final Category</label>
-                <input type="text" id="final_category" name="final_category" value="{{ old('final_category', $result->final_category) }}" placeholder="A, B, C, D, or E">
+          <!-- Category Section (editable) -->
+          <div class="detail-section">
+            <div class="detail-section-title"><i class="fa-solid fa-tag"></i> Category</div>
+            <div class="answers-grid answers-grid-edit">
+              <div class="answer-card">
+                <div class="answer-card-label">Final Category</div>
+                <div class="answer-card-value">
+                  <input type="text" name="final_category" value="{{ old('final_category', $result->final_category) }}" placeholder="A, B, C, D, or E">
+                </div>
               </div>
-              <div class="form-group">
-                <label for="final_category_name">Category Name</label>
-                <input type="text" id="final_category_name" name="final_category_name" value="{{ old('final_category_name', $result->final_category_name) }}" placeholder="Category name">
+              <div class="answer-card">
+                <div class="answer-card-label">Category Name</div>
+                <div class="answer-card-value">
+                  <input type="text" name="final_category_name" value="{{ old('final_category_name', $result->final_category_name) }}" placeholder="Category name">
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Action Buttons -->
-          <div class="button-group">
-            <a href="{{ route('admin.quiz_results.show', $result->id) }}" class="btn btn-cancel">Cancel</a>
-            <button type="submit" class="btn btn-save">💾 Save Changes</button>
+          <div class="detail-section">
+            <div class="detail-section-title"><i class="fa-regular fa-floppy-disk"></i> Actions</div>
+            <div class="button-group">
+              <a href="{{ route('admin.quiz_results.show', $result->id) }}" class="btn btn-cancel">Cancel</a>
+              <button type="submit" class="btn btn-save"><i class="fa-regular fa-floppy-disk"></i> Save Changes</button>
+            </div>
           </div>
         </form>
       </div>
